@@ -7,8 +7,14 @@ using System.Threading.Tasks;
 
 namespace Business.Abstract
 {
+    //GetCarsByBrandId , GetCarsByColorId servislerini yazınız.
     public interface ICarService
     {
+        void Add(Car car);
+        void Delete(Car car);    
+        void Update(Car car);    
         List<Car> GetAll();
+        List<Car> GetCarsByBrandId(int id);
+        List<Car> GetCarsByColorId(int id); 
     }
 }
