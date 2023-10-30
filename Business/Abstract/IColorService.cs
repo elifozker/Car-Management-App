@@ -11,7 +11,7 @@ namespace Business.Abstract
     public interface IColorService
     {
         List<Color> GetAll();
-        Color Get(Expression<Func<Color, bool>> filter);
+        Color GetById(int colorId);
         void Add(Color color);
         void Update(Color color);
         void Delete(Color color);

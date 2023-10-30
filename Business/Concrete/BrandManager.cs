@@ -33,9 +33,9 @@ namespace Business.Concrete
            return _brandDal.GetAll(); 
         }
 
-        public Brand Get(Expression<Func<Brand, bool>> filter)
+        public Brand GetById(int brandId)
         {
-            return _brandDal.Get(filter);
+            return _brandDal.Get(b => b.Id == brandId);
         }
 
         public void Update(Brand brand)

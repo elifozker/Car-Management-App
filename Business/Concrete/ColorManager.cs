@@ -32,15 +32,14 @@ namespace Business.Concrete
         {
             return _colorDal.GetAll();  
         }
-
-        public Color Get(Expression<Func<Color, bool>> filter)
-        {
-            return _colorDal.Get(filter);
-        }
-
         public void Update(Color color)
         {
             _colorDal.Update(color);
+        }
+
+        public Color GetById(int colorId)
+        {
+            return _colorDal.Get(c => c.Id == colorId);
         }
     }
 }

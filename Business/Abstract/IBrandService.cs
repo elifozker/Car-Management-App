@@ -11,7 +11,7 @@ namespace Business.Abstract
     public interface IBrandService
     {
         List<Brand> GetAll();
-        Brand Get(Expression<Func<Brand, bool>> filter);
+        Brand GetById(int brandId);
         void Add(Brand brand);
         void Update(Brand brand);
         void Delete(Brand brand);
