@@ -11,87 +11,118 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            //Test1();
-           Test2();
+            //CarBrandColorAdded();
+            //Test2();
+            BrandTest();
+            ColorTest();
+            CarTest();  
 
 
         }
-
-        private static void Test2()
+        private static void BrandTest()
         {
-            CarManager carManager = new CarManager(new EfCarDal());
-
-            foreach (var item in carManager.GetCarsDetails())
-            {
-                Console.WriteLine(item.CarName + "/" + item.BrandName + "/" + item.ColorName + "/" + item.DailyPrice);
-               
-            }
-        }
-
-        private static void Test1()
-        {
-            //CarManager carManager = new CarManager(new InMemoryCarDal());
-
-            //foreach (var item in carManager.GetAll())
-            //{
-            //    Console.WriteLine(item.DailyPrice);
-
-            //}
-            Console.WriteLine(" *** Merhaba Katmanlı Mimari Projesine Hoşgeldiniz ***");
-
-
-            Color color1 = new Color() { Id = 1, Name = "Mavi" };
-            Color color2 = new Color() { Id = 2, Name = "Kırmızı" };
-
-            ColorManager colorManager = new ColorManager(new EfColorDal());
-            colorManager.Add(color1);
-            colorManager.Add(color2);
-            List<Color> colorList = colorManager.GetAll();
-            Console.WriteLine("****************  Sisteme Kayıtlı RENKLER Listeleniyor **********************");
-            foreach (var color in colorList)
-            {
-                Console.WriteLine("Color Id : {0} , Color Name : {1} ", color.Id, color.Name);
-            }
-
-
-            Brand brand1 = new Brand() { Id = 1, Name = "Toyota" };
-            Brand brand2 = new Brand() { Id = 2, Name = "Ranault" };
-
             BrandManager brandManager = new BrandManager(new EfBrandDal());
-            brandManager.Add(brand1);
-            brandManager.Add(brand2);
+            var result = brandManager.GetAll();
 
-            Console.WriteLine("****************  Sisteme Kayıtlı MARKALAR Listeleniyor **********************");
-            foreach (var brand in brandManager.GetAll())
+            if (result.Success)
             {
-                Console.WriteLine("Marka ID : {0} , Marka Adı : {1}", brand.Id, brand.Name);
+                foreach (var brand in result.Data)
+                {
+                    Console.WriteLine(brand.Name);
+                }
+                Console.WriteLine(result.Message);
             }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+        }
+        private static void ColorTest()
+        {
+            ColorManager colorManager = new ColorManager(new EfColorDal());
+            var result = colorManager.GetAll();
 
-
+            if (result.Success)
+            {
+                foreach (var color in result.Data)
+                {
+                    Console.WriteLine(color.Name);
+                }
+                Console.WriteLine(result.Message);
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+        }
+        private static void CarTest()
+        {
             CarManager carManager = new CarManager(new EfCarDal());
-            Car car1 = new Car() { Id = 1, Name = "Toyota", BrandId = 1, ColorId = 1, ModelYear = 2023, DailyPrice = 1453, Description = "Test " };
-            Car car2 = new Car() { Id = 2, Name = "Ranault", BrandId = 2, ColorId = 2, ModelYear = 2008, DailyPrice = 15, Description = "26 / 10 / 2022 ikinci kayıt" };
-            carManager.Add(car1);
-            carManager.Add(car2);
 
-            Console.WriteLine("****************  Sisteme Kayıtlı Bütün Araçlar Listeleniyor **********************");
+            var result = carManager.Add(new Car { Name = "a", BrandId = 414, ColorId = 323, ModelYear = 2022, DailyPrice = 400, Description = "otomatik" });
+            Console.WriteLine(result.Message);
 
-            foreach (Car car in carManager.GetAll())
+            foreach (var c in carManager.GetCarsDetails().Data)
             {
-                Console.WriteLine("Araç ID:" + car.Id + ", Araç Marka ID:" + car.BrandId + ", Araç Renk ID:" + car.ColorId + ", Araç Model Yılı:" + car.ModelYear + ", Araç Günlük Kiralama Bedeli" + car.DailyPrice + ", Açıklama:" + car.Description);
+                Console.WriteLine(c.DailyPrice + " >> " + c.BrandName + " >> " + c.ColorName);
             }
 
-            Console.WriteLine("****************  Sisteme Kayıtlı BrandId=9 Olan Araçlar Listeleniyor **********************");
-            foreach (Car car in carManager.GetCarsByBrandId(9))
-            {
-                Console.WriteLine("Araç ID:" + car.Id + ", Araç Marka ID:" + car.BrandId + ", Araç Renk ID:" + car.ColorId + ", Araç Model Yılı:" + car.ModelYear + ", Araç Günlük Kiralama Bedeli" + car.DailyPrice + ", Açıklama:" + car.Description);
-            }
 
-            Console.WriteLine("****************  Sisteme Kayıtlı ColorID=88 Olan Araçlar Listeleniyor **********************");
-            foreach (Car car in carManager.GetCarsByColorId(88))
-            {
-                Console.WriteLine("Araç ID:" + car.Id + ", Araç Marka ID:" + car.BrandId + ", Araç Renk ID:" + car.ColorId + ", Araç Model Yılı:" + car.ModelYear + ", Araç Günlük Kiralama Bedeli" + car.DailyPrice + ", Açıklama:" + car.Description);
-            }
+
+
         }
     }
+
+    //public static void Test2()
+    //{
+    //    CarManager carManager = new CarManager(new EfCarDal());
+
+    //    foreach (var item in carManager.GetCarsDetails().Data)
+    //    {
+    //        Console.WriteLine("Car NAME: "  +  item.CarName + " / Brand Name: " + item.BrandName + " / Color Name: " + item.ColorName + " / Daily Price: " + item.DailyPrice);
+
+    //    }
+    //}
+
+    //public static void CarBrandColorAdded()
+    //{
+    //    //CarManager carManager = new CarManager(new InMemoryCarDal());
+
+    //    //foreach (var item in carManager.GetAll())
+    //    //{
+    //    //    Console.WriteLine(item.DailyPrice);
+
+    //    //}
+    //    Console.WriteLine(" *** Merhaba Katmanlı Mimari Projesine Hoşgeldiniz ***");
+
+
+    //    Color color1 = new Color() { Id = 1, Name = "Mavi" };
+    //    Color color2 = new Color() { Id = 2, Name = "Kırmızı" };
+
+    //    ColorManager colorManager = new ColorManager(new EfColorDal());
+    //    colorManager.Add(color1);
+    //    colorManager.Add(color2);
+
+
+
+    //    Brand brand1 = new Brand() { Id = 1, Name = "A" };
+    //    Brand brand2 = new Brand() { Id = 2, Name = "B" };
+
+    //    BrandManager brandManager = new BrandManager(new EfBrandDal());
+    //    brandManager.Add(brand1);
+    //    brandManager.Add(brand2);
+
+
+
+
+    //    CarManager carManager = new CarManager(new EfCarDal());
+    //    Car car1 = new Car() { Id = 1, Name = "Toyota", BrandId = 1, ColorId = 1, ModelYear = 2023, DailyPrice = 1453, Description = "Test " };
+    //    Car car2 = new Car() { Id = 2, Name = "Ranault", BrandId = 2, ColorId = 2, ModelYear = 2008, DailyPrice = 15, Description = "26 / 10 / 2022 ikinci kayıt" };
+    //    carManager.Add(car1);
+    //    carManager.Add(car2);
+
+
+    //}
+ //}
+    
 }
