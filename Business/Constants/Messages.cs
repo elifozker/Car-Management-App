@@ -16,6 +16,10 @@ namespace Business.Constants
         public static string Listed = "listelendi";
         public static string BrandNotFound = "Brand not found";
         public static string GetSucceed = "Get Succeed";
-
+        internal static string CompanyNameNull;
+        internal static string AddedCustomerNotFoundUser;
+        internal static string RentalUnsucceed;
+        internal static string RentalByRentalId;
+        internal static string RentalByCarId;
     }
 }

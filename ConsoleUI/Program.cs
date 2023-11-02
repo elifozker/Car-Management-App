@@ -13,9 +13,9 @@ namespace ConsoleUI
         {
             //CarBrandColorAdded();
             //Test2();
-            BrandTest();
-            ColorTest();
-            CarTest();  
+            //BrandTest();
+            //ColorTest();
+            //CarTest();  
 
 
         }
